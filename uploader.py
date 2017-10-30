@@ -15,7 +15,7 @@ from oauth2client import tools
 import evelink.api
 import evelink.char
 
-mailLabel="X/Spiele/EVE/EveMail"
+mailLabel="eve"
 
 def remove_tags(text):
     text1 = re.sub('<br>', "\r\n",text)
