@@ -15,7 +15,7 @@ from oauth2client import tools
 import evelink.api
 import evelink.char
 
-mailLabel="eve"
+mailLabel="X/Spiele/EVE/EveMail"
 
 def remove_tags(text):
     text1 = re.sub('<br>', "\r\n",text)
@@ -146,8 +146,11 @@ def main():
             for charid in getMailList[mailid]['to']['char_ids']:
                 to.append(create_address(eve.character_name_from_id(charid).result))
         if getMailList[mailid]['to']['org_id'] is not None:
-            for orgid in getMailList[mailid]['to']['org_id']:
-                to.append(create_address(eve.org_name_from_id(orgid).result))
+            try:
+                for orgid in getMailList[mailid]['to']['org_id']:
+                    to.append(create_address(eve.character_name_from_id(orgid).result))
+            except TypeError:
+                to.append(create_address(eve.character_name_from_id(getMailList[mailid]['to']['org_id']).result))
         if getMailList[mailid]['to']['list_ids'] is not None:
             for listid in getMailList[mailid]['to']['list_ids']:
                 to.append(create_address(mailingLists[listid]))
